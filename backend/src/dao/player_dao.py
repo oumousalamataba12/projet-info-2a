@@ -34,7 +34,7 @@ class PlayerDao(metaclass=Singleton):
                             "pokemon_fan": player.pokemon_fan,
                         },
                     )
-                    res = cursor.fetchone()
+                    res = cursor.fetchone() 
         except Exception as e:
             logger.error(e)
             raise
