@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from business_object.game_mode.game_mode_factory import GameModeFactory
 from business_object.scoring_strategy import ScoringStrategy
 from dao.player_dao import PlayerDao
+from dao.game_dao import GameDao
 from utils.log_utils import log
 
 
@@ -34,6 +35,7 @@ class GameService:
         mode = GameModeFactory.get_mode(game_mode)
 
         game = mode.play(p1, p2, **kwargs)
+        GameDao.create(game)
 
         ScoringStrategy.update_player_ratings(game)
 
@@ -41,3 +43,5 @@ class GameService:
         PlayerDao().update(p2)
 
         return game
+
+    

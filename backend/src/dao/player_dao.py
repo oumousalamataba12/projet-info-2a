@@ -1,5 +1,6 @@
 from business_object.player import Player
 from dao.db_connection import DBConnection
+from dao.game_dao import GameDao
 from utils.log_utils import get_logger, log
 from utils.singleton import Singleton
 
@@ -259,3 +260,15 @@ class PlayerDao(metaclass=Singleton):
             )
 
         return player
+
+    @log
+    def find_by_id(self, id_game: int) -> Game:
+        """Returns a game by its ID."""
+        return GameDao().find_by_id(id_game)
+
+    @log
+    def find_all_by_player(
+        self, id_player: int, game_mode: str | None = None
+    ) -> list[Game]:
+        """Returns all games played by a player, optionally filtered by game mode."""
+        return GameDao().find_all_by_player(id_player, game_mode)

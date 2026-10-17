@@ -3,7 +3,10 @@ from dao.db_connection import DBConnection
 from utils.log_utils import get_logger, log
 from utils.singleton import Singleton
 
-class GameDao:
+
+class GameDao(metaclass= Singleton):
+    """class containing methods to acces Games in the database."""
+
 @log
 def create(self, game) -> bool:
     """Create a game in the database.
@@ -104,7 +107,6 @@ def find_all(self) -> list[Game]:
         logger.error(e)
         raise
 
-    games = []
     for row in res:
         game = Game(
             id_game=row["id_game"],
@@ -115,7 +117,6 @@ def find_all(self) -> list[Game]:
             detail=row["detail"],
             timestamp=row["timestamp"],
         )
-        games.append(game)
+        ([]).append(game)
 
-    return games
-
+    return []
